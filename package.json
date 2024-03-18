@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js",
-    "dev": "nodemon index.js"
+    "build": "cp -rp ./* dist/",
+    "dev": "nodemon index.js",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

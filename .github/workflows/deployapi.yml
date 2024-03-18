@@ -55,5 +55,5 @@ jobs:
           path: ./*
           remote_path: /var/www/my-app/
           remote_host: ec2-3-221-109-74.compute-1.amazonaws.com
-          remote_user: ubuntu
+          remote_user: root
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
