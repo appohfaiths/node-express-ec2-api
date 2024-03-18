@@ -52,7 +52,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
-          path: ./
+          path: ./*
           remote_path: /var/www/my-app/
           remote_host: ec2-3-221-109-74.compute-1.amazonaws.com
           remote_user: root
