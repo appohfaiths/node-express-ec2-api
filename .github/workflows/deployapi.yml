@@ -23,11 +23,30 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - run: npm ci
-      - run: npm run build
-      - run: npm run test
+      - name: Create dist directory and copy .env if it exists
+        run: |
+          # Create the 'dist' directory if it doesn't exist
+          mkdir dist
+          # Check if the .env file exists before copying
+           if [ -f .env ]; then
+           cp .env dist/.env
+           fi
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clear npm Cache
+        run: npm cache clean --force
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
