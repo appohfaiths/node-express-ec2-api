@@ -49,5 +49,8 @@ jobs:
 
         # Start your Node.js app using pm2
         pm2 start npm --name "BackendAPI" -- start
+
+        # Print the contents of the PM2 error log
+        cat ~/.pm2/logs/BackendAPI-error.log
     - name: Display pm2 Process Lists
       run: pm2 list
