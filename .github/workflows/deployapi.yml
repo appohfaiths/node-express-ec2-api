@@ -21,6 +21,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Create dist directory and copy .env if it exists
+      run: |
+        # Create the 'dist' directory if it doesn't exist
+        mkdir -p dist
+
+        # Check if the .env file exists before copying
+        if [ -f .env ]; then
+          cp .env dist/
+        fi
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -28,7 +37,17 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: |
-        touch .env
-        echo "${{ secrets.PROD_ENV_FILE }}" >> .env
-    - run: npm run build --if-present
-    - run: pm2 restart BackendAPI
+        touch dist/.env
+        echo "${{ secrets.PROD_ENV_FILE }}" >> dist/.env
+    - name: Buld and start application
+      run: |
+        npm run build --if-present
+        # Change to the directory where your Node.js application is located
+        cd /home/ubuntu/actions-runner-backend/_work/node-express-ec2-api/node-express-ec2-api
+
+        pm2 delete all
+
+        # Start your Node.js app using pm2
+        pm2 start npm --name "BackendAPI" -- start
+    - name: Display pm2 Process Lists
+      run: pm2 list
