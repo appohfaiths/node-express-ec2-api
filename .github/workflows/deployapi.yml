@@ -50,8 +50,5 @@ jobs:
 
         # Start your Node.js app using pm2
         pm2 start npm -- start
-
-        # Print the contents of the PM2 error log
-        pm2 log
     - name: Display pm2 Process Lists
       run: pm2 list
