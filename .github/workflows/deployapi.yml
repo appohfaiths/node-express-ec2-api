@@ -49,7 +49,7 @@ jobs:
         pm2 delete all
 
         # Start your Node.js app using pm2
-        pm2 start npm --name "BackendAPI" -- start
+        pm2 start npm -- start
 
         # Print the contents of the PM2 error log
         pm2 log
